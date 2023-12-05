@@ -1,8 +1,9 @@
 class Utilisateur {
-    constructor(nom, email, mdp) {
+    constructor(nom, email, telephone, message) {
         this.nom = nom;
         this.email = email;
-        this.mdp = mdp;
+        this.telephone = telephone;
+        this.message = message;
     }
 }
 

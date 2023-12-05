@@ -3,6 +3,7 @@ const { MongoClient, Db } = require('mongodb')
 var client = null
 
 function connecter(url, callback) {
+    
     if (client === null) {
 
         client = new MongoClient(url)
@@ -10,10 +11,14 @@ function connecter(url, callback) {
         client.connect((erreur) => {
 
             if (erreur) {
+
                 client = null
                 callback(erreur)
+
             } else {
+
                 callback()
+
             }
 
         })
@@ -28,6 +33,7 @@ function connecter(url, callback) {
 function db() {
 
     return new Db(client, "utilisateurs")
+
 }
 
 function fermerConnexion() {

@@ -1,6 +1,6 @@
 const express = require('express')
 const { ajouterUtilisateur,
-     liste_utilisater,
+     liste_utilisateur,
      afficherUtilisateur, 
      modifierUtilisateur, 
      deleteUtilisateur } = require('../controller/utilisateur')
@@ -8,7 +8,7 @@ const { ajouterUtilisateur,
 let router = express.Router()
 
 router.route("/utilisateurs").post(ajouterUtilisateur)
-router.route("/utilisateurs").get(liste_utilisater)
+router.route("/utilisateurs").get(liste_utilisateur)
 router.route("/utilisateurs/:id").get(afficherUtilisateur)
 router.route("/utilisateurs/:id").put(modifierUtilisateur)
 router.route("/utilisateurs/:id").delete(deleteUtilisateur)

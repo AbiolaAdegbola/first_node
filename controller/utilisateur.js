@@ -2,10 +2,16 @@ const { ObjectID } = require('mongodb');
 const client = require('../db/connect')
 const { Utilisateur } = require('../models/utilisateur');
 
-
 const ajouterUtilisateur = async (req, res) => {
+
     try {
-        let utilisateur = new Utilisateur(req.body.nom, req.body.email, req.body.mdp);
+
+        const nom = req.body.nom
+        const email = req.body.email
+        const telephone = req.body.telephone
+        const message = req.body.message
+
+        let utilisateur = new Utilisateur(nom, email, telephone, message);
 
         let result = await client
             .db()
@@ -15,12 +21,16 @@ const ajouterUtilisateur = async (req, res) => {
         res.status(200).json(result)
 
     } catch (error) {
+
         console.log(error)
         res.status(501).json(error)
+
     }
+
 }
 
-const liste_utilisater = async (req, res) => {
+const liste_utilisateur = async (req, res) => {
+
     try {
 
         let cursor = client.db().collection("utilisateurs").find()
@@ -28,9 +38,13 @@ const liste_utilisater = async (req, res) => {
         let result = await cursor.toArray()
 
         if (result.length > 0) {
+
             res.status(200).json(result)
+
         } else {
+
             res.status(204).json({ msg: "Aucun utilisateur trouvé" })
+
         }
 
     } catch (error) {
@@ -62,8 +76,10 @@ const afficherUtilisateur = async (req, res) => {
         }
 
     } catch (error) {
+
         console.log(error)
         res.status(500).json(error)
+
     }
 }
 
@@ -74,9 +90,10 @@ const modifierUtilisateur = async (req, res) => {
 
         const nom = req.body.nom
         const email = req.body.email
-        const mdp = req.body.mdp
+        const telephone = req.body.telephone
+        const message = req.body.message
 
-        let result = await client.db().collection("utilisateurs").updateOne({ _id: id }, { $set: { nom, email, mdp } })
+        let result = await client.db().collection("utilisateurs").updateOne({ _id: id }, { $set: { nom, email, telephone, message } })
 
         if (result.modifiedCount === 1) {
 
@@ -115,13 +132,15 @@ const deleteUtilisateur = async (req, res) => {
         }
 
     } catch (error) {
+
         console.log(error)
         res.status(500).json(error)
+
     }
 }
 
 module.exports = { ajouterUtilisateur, 
-    liste_utilisater, 
+    liste_utilisateur, 
     afficherUtilisateur, 
     modifierUtilisateur, 
     deleteUtilisateur }
