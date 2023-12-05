@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var cors = require('cors')
 const { connecter } = require('./db/connect')
 const { router } = require('./routes/utilisateur')
+const { route_connect } = require('./routes/connexion')
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use("/api/v1", router)
+app.use("/api/v1/login", route_connect)
 
 //connexion a la base de donnée
 connecter("mongodb://127.0.0.1:27017/", (error) => {

@@ -2,31 +2,33 @@ const { ObjectID } = require('mongodb');
 const client = require('../db/connect')
 const { Utilisateur } = require('../models/utilisateur');
 
-const connexion_page = async (req, res) =>{
+const connexion_page = async (req, res) => {
     try {
 
         email = req.body.email,
         mdp = req.body.mdp
 
-        let cursor = client.db().collection('utilisateurs').find({email: email, mdp: mdp})
+        let cursor = client.db().collection('utilisateurs').find({ email: email, mdp: mdp })
 
         let result = await cursor.toArray()
 
-        if (result.length>0) {
+        if (result.length > 0) {
 
-            res.status(200).json({msg: "connexion effectuée avec succès"})
+            res.status(200).json({
+                id: result[0]._id.toString(),
+                msg: "connexion effectuée avec succès"
+            })
 
-            
         } else {
-            
-            res.status(204).json({msg: "L'utilisateur n'existe pas "})
+
+            res.status(204).json({ msg: "L'utilisateur n'existe pas " })
 
         }
-        
+
     } catch (error) {
-        
+
         console.error(error)
-        res.status(500).json({result})
+        res.status(500).json({ result })
 
     }
 }
@@ -168,9 +170,11 @@ const deleteUtilisateur = async (req, res) => {
     }
 }
 
-module.exports = { ajouterUtilisateur, 
-    liste_utilisateur, 
-    afficherUtilisateur, 
-    modifierUtilisateur, 
+module.exports = {
+    ajouterUtilisateur,
+    liste_utilisateur,
+    afficherUtilisateur,
+    modifierUtilisateur,
     deleteUtilisateur,
-    connexion_page }
+    connexion_page
+}
