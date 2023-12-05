@@ -10,8 +10,8 @@ let router = express.Router()
 router.route("/utilisateurs").post(ajouterUtilisateur)
 router.route("/utilisateurs").get(liste_utilisateur)
 router.route("/utilisateurs/:id").get(afficherUtilisateur)
-router.route("/utilisateurs/:id").put(modifierUtilisateur)
-router.route("/utilisateurs/:id").delete(deleteUtilisateur)
+router.route("/utilisateurs/").put(modifierUtilisateur)
+router.route("/utilisateurs/").delete(deleteUtilisateur)
 
 module.exports = { router };
 

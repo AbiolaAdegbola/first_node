@@ -86,7 +86,7 @@ const afficherUtilisateur = async (req, res) => {
 const modifierUtilisateur = async (req, res) => {
     try {
 
-        const id = ObjectID(req.params.id)
+        const id = ObjectID(req.body.id)
 
         const nom = req.body.nom
         const email = req.body.email
@@ -117,7 +117,7 @@ const deleteUtilisateur = async (req, res) => {
 
     try {
 
-        let id = new ObjectID(req.params.id)
+        let id = new ObjectID(req.body.id)
 
         let result = await client.db().collection("utilisateurs").deleteOne({ _id: id })
 
